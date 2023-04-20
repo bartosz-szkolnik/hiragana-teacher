@@ -4,6 +4,7 @@
 
 ### Todo:
 - [x] Write a mechanism that will prefer the symbols that the user still has problems with
+- [ ] Add tests
 - [ ] Check & probably improve the favoring mechanism (maybe some sort of memory for double, triple points)
 - [ ] Add the rest of Hiragana
 - [ ] Add background color depending on user light/dark theme
