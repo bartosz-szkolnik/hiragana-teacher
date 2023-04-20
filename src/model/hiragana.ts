@@ -15,7 +15,7 @@ export type Hiragana =
   | 'せ'
   | 'そ';
 
-export const HIRAGANA_TO_LATIN_MAP: { [K in Hiragana]: string } = {
+const HIRAGANA_TO_LATIN_MAP: { [K in Hiragana]: string } = {
   あ: 'a',
   い: 'i',
   う: 'u',
@@ -32,3 +32,11 @@ export const HIRAGANA_TO_LATIN_MAP: { [K in Hiragana]: string } = {
   せ: 'se',
   そ: 'so',
 };
+
+export function getHiraganaArray() {
+  return Object.keys(HIRAGANA_TO_LATIN_MAP) as Hiragana[];
+}
+
+export function hiraganaToLatin(symbol: Hiragana) {
+  return HIRAGANA_TO_LATIN_MAP[symbol];
+}

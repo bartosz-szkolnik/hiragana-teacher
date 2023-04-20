@@ -1,29 +1,30 @@
 import { Component, createSignal } from 'solid-js';
 import { Input } from './components/input';
 import { Button } from './components/button';
-import { HIRAGANA_TO_LATIN_MAP, type Hiragana } from './model/hiragana';
-
-let lastSymbol: Hiragana | null = null;
-const HIRAGANA_ARRAY = Object.keys(HIRAGANA_TO_LATIN_MAP);
+import { getHiraganaArray, hiraganaToLatin } from './model/hiragana';
+import { createFavoringMechanism } from './favoring-mechanism';
+import serialize from 'form-serialize';
 
 const App: Component = () => {
-  const [symbol, setSymbol] = createSignal(getRandomSymbol());
+  const [symbolsArray] = createSignal(getHiraganaArray());
+  const [symbol, success, lose, points] = createFavoringMechanism(symbolsArray());
   const [streak, setStreak] = createSignal(0);
 
   const handleSubmit = (event: SubmitEvent) => {
     event.preventDefault();
+    const form = event.target as HTMLFormElement;
 
-    const target = event.target as HTMLFormElement;
-    const input = (target as any)[0] as HTMLInputElement;
-    const value = input.value.toLowerCase();
-    const isCorrect = HIRAGANA_TO_LATIN_MAP[symbol()] === value;
+    const values = serialize(form, { hash: true });
+    const value = ((values.symbol ?? '') as string).toLowerCase();
+    form.reset();
 
-    input.value = '';
+    const isCorrect = hiraganaToLatin(symbol()) === value;
     if (isCorrect) {
       setStreak(streak() + 1);
-      setSymbol(getRandomSymbol());
+      success();
     } else {
       setStreak(0);
+      lose();
     }
   };
 
@@ -40,38 +41,19 @@ const App: Component = () => {
         <h2 class="text-3xl my-4 font-bold">Current streak: {streak()}</h2>
         <span class="text-9xl p-16 bg-slate-100 border-black border-8">{symbol()}</span>
         <form class="mt-16 flex flex-col items-center" onSubmit={handleSubmit}>
-          <div>
-            <Input class="w-100 min-w-[400px]"></Input>
-          </div>
+          <Input name="symbol" class="w-100 min-w-[400px]"></Input>
           <div class="flex gap-4 mt-4">
-            <Button>Submit</Button>
-            <Button type="button" onClick={handleClick}>
-              Give me a hint
-            </Button>
-            <Button type="button" onClick={handleClick}>
-              Give me the answer
-            </Button>
+            <Button type="submit">Submit</Button>
+            <Button onClick={handleClick}>Give me a hint</Button>
+            <Button onClick={handleClick}>Give me the answer</Button>
           </div>
         </form>
+        <pre class="mt-8">
+          <code>{JSON.stringify(points(), null, 2)}</code>
+        </pre>
       </main>
     </div>
   );
 };
 
 export default App;
-
-function getRandomIndex() {
-  return Math.floor(Math.random() * HIRAGANA_ARRAY.length);
-}
-
-function getRandomSymbol() {
-  const index = getRandomIndex();
-  let symbol = HIRAGANA_ARRAY.at(index ?? 0) as Hiragana;
-  while (symbol === lastSymbol) {
-    const index = getRandomIndex();
-    symbol = HIRAGANA_ARRAY.at(index ?? 0) as Hiragana;
-  }
-
-  lastSymbol = symbol;
-  return symbol;
-}

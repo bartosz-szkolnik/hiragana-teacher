@@ -1,11 +1,17 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  form-serialize:
+    specifier: ^0.7.2
+    version: 0.7.2
   solid-js:
     specifier: ^1.7.3
     version: 1.7.3
 
 devDependencies:
+  '@types/form-serialize':
+    specifier: ^0.7.2
+    version: 0.7.2
   autoprefixer:
     specifier: ^10.4.14
     version: 10.4.14(postcss@8.4.22)
@@ -640,6 +646,10 @@ packages:
       '@babel/types': 7.20.7
     dev: true
 
+  /@types/form-serialize@0.7.2:
+    resolution: {integrity: sha512-DOHz5r47gNIcA6bsKjMV7G/Bgs3FFTQBFCHw95D0+5bANYIjazCmrOCTnGhtgIKeg0dJGhKlnT0WOkS2HdeqXQ==}
+    dev: true
+
   /ansi-styles@3.2.1:
     resolution: {integrity: sha512-VT0ZI6kZRdTh8YyJw3SMbYm/u+NqfsAxEpWO0Pf9sq8/e94WxxOpPKx9FR1FlyCtOVDNOQ+8ntlqFxiRc+r5qA==}
     engines: {node: '>=4'}
@@ -891,6 +901,10 @@ packages:
     dependencies:
       to-regex-range: 5.0.1
     dev: true
+
+  /form-serialize@0.7.2:
+    resolution: {integrity: sha512-ohEA4Crzd/+hSREjGf4kSsy73WhAtQ7H+blGEz2DVd+JCi0TV5nZBSn9PaPlvrl9m29fa6xclAfpRkqZ57b1bw==}
+    dev: false
 
   /fraction.js@4.2.0:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}

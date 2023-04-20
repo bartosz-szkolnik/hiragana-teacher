@@ -2,6 +2,7 @@ import { Component } from 'solid-js';
 
 type InputProps = {
   class: string;
+  name?: string;
 };
 
 export const Input: Component<InputProps> = props => {
@@ -9,6 +10,8 @@ export const Input: Component<InputProps> = props => {
     <div class={props.class}>
       <div class="relative h-11 w-full">
         <input
+          name={props.name}
+          autocomplete="off"
           placeholder="What do you think the answer is?"
           class="peer text-lg h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-blue-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
         />
