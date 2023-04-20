@@ -7,6 +7,7 @@
 - [ ] Add tests
 - [ ] Check & probably improve the favoring mechanism (maybe some sort of memory for double, triple points)
 - [ ] Add the rest of Hiragana
+- [ ] Add the possibility of switching to words (good luck to me with writing all that stuff) 
 - [ ] Add background color depending on user light/dark theme
 - [ ] Add Katakana 
 - [ ] Add korean alphabet (maybe)

@@ -13,7 +13,17 @@ export type Hiragana =
   | 'し'
   | 'す'
   | 'せ'
-  | 'そ';
+  | 'そ'
+  | 'た'
+  | 'ち'
+  | 'つ'
+  | 'て'
+  | 'と'
+  | 'ん'
+  | 'で'
+  | 'れ'
+  | 'つんでれ'
+  | 'くうでれ';
 
 const HIRAGANA_TO_LATIN_MAP: { [K in Hiragana]: string } = {
   あ: 'a',
@@ -31,12 +41,22 @@ const HIRAGANA_TO_LATIN_MAP: { [K in Hiragana]: string } = {
   す: 'su',
   せ: 'se',
   そ: 'so',
+  た: 'ta',
+  ち: 'chi',
+  つ: 'tsu',
+  て: 'te',
+  と: 'to',
+  ん: 'n',
+  で: 'de',
+  れ: 're',
+  つんでれ: 'tsundere',
+  くうでれ: 'kuudere',
 };
 
 export function getHiraganaArray() {
   return Object.keys(HIRAGANA_TO_LATIN_MAP) as Hiragana[];
 }
 
-export function hiraganaToLatin(symbol: Hiragana) {
+export function mapHiraganaToLatin(symbol: Hiragana) {
   return HIRAGANA_TO_LATIN_MAP[symbol];
 }

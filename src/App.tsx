@@ -1,7 +1,7 @@
 import { Component, createSignal } from 'solid-js';
 import { Input } from './components/input';
 import { Button } from './components/button';
-import { getHiraganaArray, hiraganaToLatin } from './model/hiragana';
+import { getHiraganaArray, mapHiraganaToLatin } from './model/hiragana';
 import { createFavoringMechanism } from './favoring-mechanism';
 import serialize from 'form-serialize';
 
@@ -9,6 +9,7 @@ const App: Component = () => {
   const [symbolsArray] = createSignal(getHiraganaArray());
   const [symbol, success, lose, points] = createFavoringMechanism(symbolsArray());
   const [streak, setStreak] = createSignal(0);
+  const [showAnswer, setShowAnswer] = createSignal(false);
 
   const handleSubmit = (event: SubmitEvent) => {
     event.preventDefault();
@@ -18,10 +19,11 @@ const App: Component = () => {
     const value = ((values.symbol ?? '') as string).toLowerCase();
     form.reset();
 
-    const isCorrect = hiraganaToLatin(symbol()) === value;
+    const isCorrect = mapHiraganaToLatin(symbol()) === value;
     if (isCorrect) {
       setStreak(streak() + 1);
       success();
+      setShowAnswer(false);
     } else {
       setStreak(0);
       lose();
@@ -30,6 +32,7 @@ const App: Component = () => {
 
   const handleClick = (event: Event) => {
     event.preventDefault();
+    setShowAnswer(true);
   };
 
   return (
@@ -47,6 +50,7 @@ const App: Component = () => {
             <Button onClick={handleClick}>Give me a hint</Button>
             <Button onClick={handleClick}>Give me the answer</Button>
           </div>
+          {showAnswer() && <span class="mt-4 text-2xl font-bold">The answer is: {mapHiraganaToLatin(symbol())}</span>}
         </form>
         <pre class="mt-8">
           <code>{JSON.stringify(points(), null, 2)}</code>
