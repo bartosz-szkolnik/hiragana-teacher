@@ -9,9 +9,9 @@ Todo:
 - [ ] Check & probably improve the favoring mechanism (maybe some sort of memory for double, triple points)
 - [ ] Add the rest of Hiragana
 - [ ] Add the ability to write hiragana to learn the placement on the keyboard 
-- [ ] Make it look & work good on mobile
+- [x] Make it look & work good on mobile
 - [ ] Add background color depending on user light/dark theme
-- [ ] Add hint & reveal answer buttons
+- [x] Add hint & reveal answer buttons
 - [ ] Deploy finished MVP
 - [ ] Add the possibility of switching to words (good luck to me with writing all that stuff) 
 - [ ] Add Katakana 
