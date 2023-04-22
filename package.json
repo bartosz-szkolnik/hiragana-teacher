@@ -13,7 +13,9 @@
   "devDependencies": {
     "@solidjs/testing-library": "^0.7.0",
     "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/user-event": "^14.4.3",
     "@types/form-serialize": "^0.7.2",
+    "@types/testing-library__jest-dom": "^5.14.5",
     "autoprefixer": "^10.4.14",
     "jsdom": "^21.1.1",
     "postcss": "^8.4.22",
