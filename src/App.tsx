@@ -4,6 +4,8 @@ import { Button } from './components/button';
 import { getHiraganaArray, mapHiraganaToLatin } from './model/hiragana';
 import { createFavoringMechanism } from './favoring-mechanism';
 import serialize from 'form-serialize';
+import { RadioGroup } from './components/radio-group';
+import { RadioButton } from './components/radio-button';
 
 const App: Component = () => {
   const [symbolsArray] = createSignal(getHiraganaArray());
@@ -35,6 +37,10 @@ const App: Component = () => {
     setShowAnswer(true);
   };
 
+  const handleDirectionChange = (direction: string) => {
+    console.log(direction);
+  };
+
   return (
     <div class="flex flex-col items-center">
       <header>
@@ -42,6 +48,12 @@ const App: Component = () => {
       </header>
       <main class="mt-8 flex flex-col items-center">
         <h2 class="text-3xl my-4 font-bold">Current streak: {streak()}</h2>
+        <RadioGroup name="direction" handleChange={handleDirectionChange}>
+          <RadioButton checked id="hiragana-to-latin">
+            Hiragana to latin
+          </RadioButton>
+          <RadioButton id="latin-to-hiragana">Latin to hiragana</RadioButton>
+        </RadioGroup>
         <span class="text-9xl p-16 bg-slate-100 border-black border-8">{symbol()}</span>
         <form class="mt-16 flex flex-col items-center" onSubmit={handleSubmit}>
           <Input name="symbol" class="w-100 min-w-[400px]"></Input>
