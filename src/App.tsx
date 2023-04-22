@@ -44,29 +44,29 @@ const App: Component = () => {
   return (
     <div class="flex flex-col items-center">
       <header>
-        <h1 class="text-5xl mt-8 mb-2 font-bold">Hiragana teacher</h1>
+        <h1 class="text-4xl mt-8 mb-2 font-bold">Hiragana teacher</h1>
       </header>
       <main class="mt-8 flex flex-col items-center">
-        <h2 class="text-3xl my-4 font-bold">Current streak: {streak()}</h2>
-        <RadioGroup name="direction" handleChange={handleDirectionChange}>
+        <h2 class="text-2xl my-4 font-bold">Current streak: {streak()}</h2>
+        {/* <RadioGroup name="direction" handleChange={handleDirectionChange}>
           <RadioButton checked id="hiragana-to-latin">
             Hiragana to latin
           </RadioButton>
           <RadioButton id="latin-to-hiragana">Latin to hiragana</RadioButton>
-        </RadioGroup>
+        </RadioGroup> */}
         <span class="text-9xl p-16 bg-slate-100 border-black border-8">{symbol()}</span>
-        <form class="mt-16 flex flex-col items-center" onSubmit={handleSubmit}>
-          <Input name="symbol" class="w-100 min-w-[400px]"></Input>
-          <div class="flex gap-4 mt-4">
-            <Button type="submit">Submit</Button>
-            <Button onClick={handleClick}>Give me a hint</Button>
-            <Button onClick={handleClick}>Give me the answer</Button>
-          </div>
+        <form class="md:mt-16 flex flex-col items-center" onSubmit={handleSubmit}>
+          <Input name="symbol" class="w-100 min-w-[280px] md:min-w-[400px]"></Input>
           {showAnswer() && <span class="mt-4 text-2xl font-bold">The answer is: {mapHiraganaToLatin(symbol())}</span>}
+          <div class="flex flex-col md:flex-row gap-4 my-4">
+            <Button type="submit">Submit</Button>
+            <Button onClick={handleClick}>Give me the answer</Button>
+            {/* <Button onClick={handleClick}>Give me a hint</Button> */}
+          </div>
         </form>
-        <pre class="mt-8">
+        {/* <pre class="mt-8">
           <code>{JSON.stringify(points(), null, 2)}</code>
-        </pre>
+        </pre> */}
       </main>
     </div>
   );
