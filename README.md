@@ -12,7 +12,7 @@ Todo:
 - [x] Make it look & work good on mobile
 - [ ] Add background color depending on user light/dark theme
 - [x] Add hint & reveal answer buttons
-- [ ] Deploy finished MVP
+- [x] Deploy finished MVP
 - [ ] Add the possibility of switching to words (good luck to me with writing all that stuff) 
 - [ ] Add Katakana 
 - [ ] Add korean alphabet (maybe)

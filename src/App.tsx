@@ -1,4 +1,4 @@
-import { Component, createSignal } from 'solid-js';
+import { Component, batch, createSignal } from 'solid-js';
 import { Input } from './components/input';
 import { Button } from './components/button';
 import { getHiraganaArray, mapHiraganaToLatin } from './model/hiragana';
@@ -23,12 +23,16 @@ const App: Component = () => {
 
     const isCorrect = mapHiraganaToLatin(symbol()) === value;
     if (isCorrect) {
-      setStreak(streak() + 1);
-      success();
-      setShowAnswer(false);
+      batch(() => {
+        setStreak(streak() + 1);
+        success();
+        setShowAnswer(false);
+      });
     } else {
-      setStreak(0);
-      lose();
+      batch(() => {
+        setStreak(0);
+        lose();
+      });
     }
   };
 
