@@ -33,9 +33,9 @@ const App: Component = () => {
         <TranslationModeSelector onChange={setTranslationMode} value={translationMode()} />
         <Symbol symbol={symbol()}></Symbol>
         <Form onSubmit={handleSubmit} symbol={symbol()} translationMode={translationMode()}></Form>
-        <pre class="mt-8">
+        {/* <pre class="mt-8">
           <code>{JSON.stringify(table(), null, 2)}</code>
-        </pre>
+        </pre> */}
       </main>
     </div>
   );
