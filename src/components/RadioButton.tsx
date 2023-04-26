@@ -1,5 +1,5 @@
-import { ParentProps, useContext } from 'solid-js';
-import { RadioContext } from './radio-group';
+import { ParentProps } from 'solid-js';
+import { useRadioContext } from './RadioGroup';
 
 type Props = ParentProps & {
   id: string;
@@ -7,7 +7,7 @@ type Props = ParentProps & {
 };
 
 export function RadioButton(props: Props) {
-  const [name, handleChange] = useContext(RadioContext);
+  const [name, handleChange] = useRadioContext();
 
   return (
     <div class="inline-flex items-center">

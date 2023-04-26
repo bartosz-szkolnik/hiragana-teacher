@@ -1,3 +1,5 @@
+// import type { Latin } from './latin';
+
 type SingleCharacters = 'あ' | 'い' | 'う' | 'え' | 'お';
 type K_Characters = 'か' | 'き' | 'く' | 'け' | 'こ';
 type G_Characters = 'が' | 'ぎ' | 'ぐ' | 'げ' | 'ご';
@@ -91,6 +93,15 @@ export function getHiraganaArray() {
   return Object.keys(HIRAGANA_TO_LATIN_MAP) as Hiragana[];
 }
 
-export function mapHiraganaToLatin(symbol: Hiragana) {
+export function getLatinArray() {
+  return Object.values(HIRAGANA_TO_LATIN_MAP) as string[];
+}
+
+export function translateHiraganaToLatin(symbol: Hiragana) {
   return HIRAGANA_TO_LATIN_MAP[symbol];
+}
+
+export function translateLatinToHiragana(latin: string) {
+  const [found] = Object.entries(HIRAGANA_TO_LATIN_MAP).find(([, value]) => value === latin) ?? [];
+  return found!;
 }

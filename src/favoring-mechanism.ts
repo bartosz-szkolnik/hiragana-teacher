@@ -1,40 +1,45 @@
-import { createSignal } from 'solid-js';
-import { Hiragana } from './model/hiragana';
+import { Accessor, createEffect, createSignal, untrack } from 'solid-js';
 
-type PointsTable = Record<Hiragana, number>;
-let lastSymbol: Hiragana | null = null;
+type PointsTable = Record<string, number>;
+let lastSymbol: string | null = null;
 
-export function createFavoringMechanism(symbolsArray: Hiragana[]) {
-  const [pointsTable, addPoints, removePoints] = createPointsTable(symbolsArray);
-  const [symbol, setSymbol] = createSignal(getSymbolBasedOnPoints(pointsTable()));
+export function createFavoringMechanism(symbolsArray: Accessor<string[]>) {
+  const initial = createPointsTable(symbolsArray());
+  const [table, setTable] = createSignal<PointsTable>(initial);
+  const [symbol, setSymbol] = createSignal<string>('');
 
-  const success = () => {
-    addPoints(symbol());
-    setSymbol(getSymbolBasedOnPoints(pointsTable()));
+  createEffect(() => {
+    setTable(createPointsTable(symbolsArray()));
+    untrack(() => setSymbol(getSymbolBasedOnPoints(table())));
+  });
+
+  const success = (withHelp: boolean) => {
+    setTable(table => ({ ...table, [symbol()]: table[symbol()] + (withHelp ? 0 : 1) }));
+    setSymbol(getSymbolBasedOnPoints(table()));
   };
 
   const lose = () => {
-    removePoints(symbol());
+    setTable(table => ({ ...table, [symbol()]: table[symbol()] - 1 }));
   };
 
-  return [symbol, success, lose, pointsTable] as const;
+  return { table, symbol, success, lose };
 }
 
-function getSymbolBasedOnPoints(pointsTable: PointsTable) {
-  const entries = Object.entries(pointsTable) as [Hiragana, number][];
+function getSymbolBasedOnPoints(pointsTable: PointsTable): string {
+  const entries = Object.entries(pointsTable);
 
   const shouldGetRandomSymbol = Math.random() > 0.8;
   if (shouldGetRandomSymbol) {
-    return getRandomSymbolFrom(Object.keys(pointsTable) as Hiragana[]);
+    return getRandomSymbolFrom(Object.keys(pointsTable));
   }
 
   const leastPointedFive = [...entries].sort(([, a], [, b]) => a - b).slice(0, 5);
-  const symbols = Object.keys(Object.fromEntries(leastPointedFive)) as Hiragana[];
+  const symbols = Object.keys(Object.fromEntries(leastPointedFive));
   return getRandomSymbolFrom(symbols);
 }
 
-function getRandomSymbolFrom(array: Hiragana[]) {
-  let symbol: Hiragana | null = null;
+function getRandomSymbolFrom(array: string[]) {
+  let symbol: string | null = null;
 
   do {
     const index = Math.floor(Math.random() * array.length);
@@ -45,19 +50,6 @@ function getRandomSymbolFrom(array: Hiragana[]) {
   return symbol;
 }
 
-function createPointsTable(symbolsArray: Hiragana[]) {
-  const initial = symbolsArray.reduce((p, c) => ({ ...p, [c]: 0 }), {} as PointsTable);
-  const [table, setTable] = createSignal(initial);
-
-  function addPoints(symbol: Hiragana) {
-    const value = table()[symbol] + 1;
-    setTable({ ...table(), [symbol]: value });
-  }
-
-  function removePoints(symbol: Hiragana) {
-    const value = table()[symbol] - 1;
-    setTable({ ...table(), [symbol]: value });
-  }
-
-  return [table, addPoints, removePoints] as const;
+function createPointsTable(symbolsArray: string[]) {
+  return symbolsArray.reduce((p, c) => ({ ...p, [c]: 0 }), {} as PointsTable);
 }
