@@ -1,8 +1,9 @@
-import { Component } from 'solid-js';
+import { Component, JSX, Ref } from 'solid-js';
 
-type InputProps = {
+type InputProps = Partial<JSX.IntrinsicElements> & {
   class: string;
   name?: string;
+  ref: Ref<HTMLInputElement>;
 };
 
 export const Input: Component<InputProps> = props => {
@@ -10,6 +11,7 @@ export const Input: Component<InputProps> = props => {
     <div class={props.class}>
       <div class="relative h-11 w-full">
         <input
+          ref={props.ref}
           type="text"
           required
           name={props.name}

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createFavoringMechanism } from '../src/favoring-mechanism';
+import { createFavoringMechanism } from '../src/model/favoring-mechanism';
 import { Hiragana } from '../src/model/hiragana';
 
 const HIRAGANA_ARRAY = ['あ', 'い', 'う', 'え', 'お'] satisfies Hiragana[];

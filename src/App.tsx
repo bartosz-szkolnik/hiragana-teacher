@@ -1,14 +1,18 @@
 import { Component, createMemo, createSignal } from 'solid-js';
-import { createFavoringMechanism } from './favoring-mechanism';
-import { TranslationMode, TranslationModeSelector } from './TranslationModeSelector';
-import { Symbol } from './Symbol';
-import { Form } from './Form';
-import { getSymbolsArray } from './utils';
+import { createFavoringMechanism } from './model/favoring-mechanism';
+import { TranslationMode, TranslationModeSelector } from './domain/TranslationModeSelector';
+import { Symbol } from './domain/Symbol';
+import { Form } from './domain/Form';
+import { getSymbolsArray } from './model/utils';
+import { Difficulty, DifficultySelector } from './domain/DifficultySelector';
+
+const IS_DEV = false;
 
 const App: Component = () => {
   const [translationMode, setTranslationMode] = createSignal<TranslationMode>('to-latin');
+  const [difficulty, setDifficulty] = createSignal<Difficulty>('easy');
 
-  const symbolsArray = createMemo(() => getSymbolsArray(translationMode()));
+  const symbolsArray = createMemo(() => getSymbolsArray(translationMode(), difficulty()));
   const { symbol, table, success, lose } = createFavoringMechanism(symbolsArray);
 
   const [streak, setStreak] = createSignal(0);
@@ -24,18 +28,23 @@ const App: Component = () => {
   };
 
   return (
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col items-center text-center">
       <header>
-        <h1 class="text-4xl mt-8 mb-2 font-bold">Hiragana teacher</h1>
+        <h1 class="text-4xl mt-8 font-bold">Hiragana teacher</h1>
       </header>
-      <main class="mt-8 flex flex-col items-center">
-        <h2 class="text-3xl my-4 font-bold">Current streak: {streak()}</h2>
-        <TranslationModeSelector onChange={setTranslationMode} value={translationMode()} />
+      <main class="mt-12 flex flex-col items-center">
+        <h2 class="text-3xl font-bold">Current streak: {streak()}</h2>
+        <nav class="mt-4 flex flex-col align-items justify-center">
+          {IS_DEV ?? <TranslationModeSelector onChange={setTranslationMode} value={translationMode()} />}
+          <DifficultySelector onChange={setDifficulty} value={difficulty()} />
+        </nav>
         <Symbol symbol={symbol()}></Symbol>
         <Form onSubmit={handleSubmit} symbol={symbol()} translationMode={translationMode()}></Form>
-        {/* <pre class="mt-8">
-          <code>{JSON.stringify(table(), null, 2)}</code>
-        </pre> */}
+        {IS_DEV && (
+          <pre class="mt-4">
+            <code>{JSON.stringify(table(), null, 2)}</code>
+          </pre>
+        )}
       </main>
     </div>
   );

@@ -1,6 +1,6 @@
 import { For } from 'solid-js';
-import { RadioButton } from './components/RadioButton';
-import { RadioGroup } from './components/RadioGroup';
+import { RadioButton } from '../components/RadioButton';
+import { RadioConfig, RadioGroup } from '../components/RadioGroup';
 
 type SymbolLanguage = 'hiragana' | 'katakana' | 'korean';
 export type TranslationMode = 'to-latin' | 'from-latin';
@@ -10,7 +10,7 @@ type Props = {
   onChange: (translation: TranslationMode) => void;
 };
 
-const TRANSLATIONS: { id: TranslationMode; label: string }[] = [
+const TRANSLATIONS: RadioConfig<TranslationMode> = [
   {
     id: 'to-latin',
     label: 'Hiragana to latin',
@@ -23,7 +23,7 @@ const TRANSLATIONS: { id: TranslationMode; label: string }[] = [
 
 export function TranslationModeSelector(props: Props) {
   return (
-    <RadioGroup name="direction" onChange={value => props.onChange(value as TranslationMode)}>
+    <RadioGroup name="translation" onChange={value => props.onChange(value as TranslationMode)}>
       <For each={TRANSLATIONS}>
         {item => (
           <RadioButton checked={props.value === item.id} id={item.id}>

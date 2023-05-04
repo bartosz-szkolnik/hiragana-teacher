@@ -4,9 +4,8 @@ type PointsTable = Record<string, number>;
 let lastSymbol: string | null = null;
 
 export function createFavoringMechanism(symbolsArray: Accessor<string[]>) {
-  const initial = createPointsTable(symbolsArray());
-  const [table, setTable] = createSignal<PointsTable>(initial);
-  const [symbol, setSymbol] = createSignal<string>('');
+  const [table, setTable] = createSignal({} as PointsTable);
+  const [symbol, setSymbol] = createSignal('');
 
   createEffect(() => {
     setTable(createPointsTable(symbolsArray()));
@@ -14,12 +13,16 @@ export function createFavoringMechanism(symbolsArray: Accessor<string[]>) {
   });
 
   const success = (withHelp: boolean) => {
-    setTable(table => ({ ...table, [symbol()]: table[symbol()] + (withHelp ? 0 : 1) }));
+    const current = table()[symbol()];
+    const points = current + (withHelp ? 0 : 1 + Math.round(current * 0.3));
+    setTable(table => ({ ...table, [symbol()]: points }));
     setSymbol(getSymbolBasedOnPoints(table()));
   };
 
   const lose = () => {
-    setTable(table => ({ ...table, [symbol()]: table[symbol()] - 1 }));
+    const current = table()[symbol()];
+    const points = current - (1 + Math.round(current * 0.3));
+    setTable(table => ({ ...table, [symbol()]: points }));
   };
 
   return { table, symbol, success, lose };

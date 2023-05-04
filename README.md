@@ -5,12 +5,14 @@ A simple tool that will help me learn hiragana and maybe other writing systems. 
 Todo:
 - [x] Add better favicon
 - [x] Write a mechanism that will prefer the symbols that the user still has problems with
+- [x] Make it look & work good on mobile
+- [x] Add difficulty levels
+- [ ] Add background color depending on user light/dark theme 
+- [ ] Add local storage support
 - [ ] Add tests
 - [ ] Check & probably improve the favoring mechanism (maybe some sort of memory for double, triple points)
-- [ ] Add the rest of Hiragana
-- [ ] Add the ability to write hiragana to learn the placement on the keyboard 
-- [x] Make it look & work good on mobile
-- [ ] Add background color depending on user light/dark theme
+- [ ] Add the rest of Hiragana 
+- [x] Add the ability to write hiragana to learn the placement on the keyboard 
 - [x] Add hint & reveal answer buttons
 - [x] Deploy finished MVP
 - [ ] Add the possibility of switching to words (good luck to me with writing all that stuff) 
