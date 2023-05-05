@@ -10,7 +10,8 @@ Todo:
 - [x] Make it look & work good on mobile
 - [x] Add difficulty levels
 - [ ] Add background color depending on user light/dark theme 
-- [ ] Add local storage support
+- [x] Add local storage support
+- [ ] Refactor
 - [ ] Add tests
 - [ ] Check & probably improve the favoring mechanism (maybe some sort of memory for double, triple points)
 - [ ] Add the rest of Hiragana 

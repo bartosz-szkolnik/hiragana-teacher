@@ -2,6 +2,7 @@ import { Match, Switch } from 'solid-js';
 
 type IconProps = {
   variant: keyof typeof ICONS;
+  class?: string;
   onClick?: (event: Event) => void;
 };
 
@@ -9,7 +10,7 @@ export function Icon(props: IconProps) {
   return (
     <button
       onClick={props.onClick}
-      class="w-12 h-12 p-2 rounded-3xl transition-all hover:bg-slate-100 active:bg-slate-200 focus:opacity-[0.85] active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50"
+      class={`w-12 h-12 p-2 rounded-3xl transition-all hover:bg-slate-100 active:bg-slate-200 focus:opacity-[0.85] active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 ${props.class}`}
     >
       <Switch fallback={<div>Icon Not Found</div>}>
         <Match when={props.variant === 'settings'}>{ICONS['settings']}</Match>

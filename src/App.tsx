@@ -7,12 +7,13 @@ import { getSymbolsArray } from './model/utils';
 import { Difficulty, DifficultySelector } from './domain/DifficultySelector';
 import { Icon } from './components/Icon';
 import { SettingsPanel } from './domain/SettingsPanel';
+import * as localStorage from './model/local-storage';
 
 const IS_DEV = false;
 
 const App: Component = () => {
   const [translationMode, setTranslationMode] = createSignal<TranslationMode>('to-latin');
-  const [difficulty, setDifficulty] = createSignal<Difficulty>('easy');
+  const [difficulty, setDifficulty] = createSignal<Difficulty>(localStorage.getDifficulty());
   const [settingsOpened, setSettingsOpen] = createSignal(false);
 
   const symbolsArray = createMemo(() => getSymbolsArray(translationMode(), difficulty()));

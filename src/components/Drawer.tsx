@@ -51,8 +51,7 @@ export function Drawer(props: DrawerProps) {
                   aria-label="Close"
                   onClick={() => setContentOpen(false)}
                 >
-                  {/* class="h-6 w-6" */}
-                  <Icon variant="arrow-left"></Icon>
+                  <Icon class="h-10 w-10" variant="arrow-left"></Icon>
                 </button>
                 <div>{props.children}</div>
               </div>
