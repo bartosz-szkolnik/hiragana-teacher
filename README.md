@@ -9,7 +9,7 @@ Todo:
 - [x] Write a mechanism that will prefer the symbols that the user still has problems with
 - [x] Make it look & work good on mobile
 - [x] Add difficulty levels
-- [ ] Add background color depending on user light/dark theme 
+- [x] Add background color depending on user light/dark theme 
 - [x] Add local storage support
 - [ ] Refactor
 - [ ] Add tests

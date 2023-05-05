@@ -35,25 +35,25 @@ export function Drawer(props: DrawerProps) {
     <FadeInOut onAfterExit={() => setClosed(true)}>
       {backdropOpen() && (
         <div
-          class="fixed flex justify-end w-full h-full top-0 left-0 z-20 bg-black/80"
+          class="fixed flex justify-end w-full h-full top-0 left-0 z-20 bg-black/80 "
           onClick={() => setContentOpen(false)}
         >
           <SlideInOut onAfterExit={() => setBackdropOpen(false)}>
             {contentOpen() && (
               <div
                 role="dialog"
-                class="max-w-lg w-full h-full bg-white right-0 left-0 p-8"
+                class="max-w-lg w-full h-full bg-white right-0 left-0 p-8 dark:bg-slate-800"
                 onClick={event => event.stopPropagation()}
               >
-                <button
+                {/* <button
                   type="button"
                   class="mb-8 p-2 bg-gray-50 hover:bg-gray-100 transition-colors rounded-full"
                   aria-label="Close"
                   onClick={() => setContentOpen(false)}
-                >
-                  <Icon class="h-10 w-10" variant="arrow-left"></Icon>
-                </button>
-                <div>{props.children}</div>
+                > */}
+                <Icon onClick={() => setContentOpen(false)} class="h-10 w-10" variant="arrow-left"></Icon>
+                {/* </button> */}
+                <div class="mb-8">{props.children}</div>
               </div>
             )}
           </SlideInOut>

@@ -28,7 +28,7 @@ export function RadioButton(props: Props) {
           </svg>
         </div>
       </label>
-      <label class="mt-px cursor-pointer select-none font-light text-gray-700" for={props.id}>
+      <label class="mt-px cursor-pointer select-none font-light text-gray-700 dark:text-white" for={props.id}>
         {props.children}
       </label>
     </div>

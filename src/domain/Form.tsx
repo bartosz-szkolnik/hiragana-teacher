@@ -43,7 +43,9 @@ export function Form(props: Props) {
       <div class="flex gap-4 mt-4 flex-col">
         <Button type="submit">Submit answer</Button>
         {showAnswer() ? (
-          <span class="mt-4 text-2xl font-bold">The answer is: {translate(props.translationMode, props.symbol)}</span>
+          <span class="mt-4 text-2xl font-bold dark:text-white">
+            The answer is: {translate(props.translationMode, props.symbol)}
+          </span>
         ) : (
           <Button onClick={handleClick}>Give me the answer</Button>
         )}

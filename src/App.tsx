@@ -38,11 +38,11 @@ const App: Component = () => {
   return (
     <div class="flex flex-col items-center text-center">
       <header>
-        <h1 class="text-4xl mt-8 font-bold">Hiragana teacher</h1>
+        <h1 class="text-4xl mt-8 font-bold dark:text-white">Hiragana teacher</h1>
       </header>
       <main class="mt-12 flex flex-col items-center">
         <div class="flex justify-between gap-5 items-center">
-          <h2 class="text-3xl font-bold">Current streak: {streak()}</h2>
+          <h2 class="text-3xl font-bold dark:text-white">Current streak: {streak()}</h2>
           <Icon onClick={handleToggleSettings} variant="settings"></Icon>
         </div>
         <nav class="mt-4 flex flex-col align-items justify-center">
@@ -52,7 +52,7 @@ const App: Component = () => {
         <Symbol symbol={symbol()}></Symbol>
         <Form onSubmit={handleSubmit} symbol={symbol()} translationMode={translationMode()}></Form>
         {IS_DEV && (
-          <pre class="mt-4">
+          <pre class="mt-4 dark:text-white">
             <code>{JSON.stringify(table(), null, 2)}</code>
           </pre>
         )}
