@@ -2,6 +2,8 @@
 
 A simple tool that will help me learn hiragana and maybe other writing systems. At least I hope so. 
 
+You can try out the current version [here](https://hiragana-teacher.vercel.app/).
+
 Todo:
 - [x] Add better favicon
 - [x] Write a mechanism that will prefer the symbols that the user still has problems with
