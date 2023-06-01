@@ -1,10 +1,13 @@
 import type { Difficulty } from '../domain/DifficultySelector';
-import { getHiraganaArray } from './hiragana';
+import { HIRAGANA_ARRAY } from './hiragana';
+import { KATAKANA_ARRAY } from './katakana';
 
 type LocalStorage = {
   difficulty: Difficulty;
   symbols: string;
 };
+
+const SYMBOLS_ARRAY = [...HIRAGANA_ARRAY, ...KATAKANA_ARRAY];
 
 export function updateSymbol(symbol: string, value: number) {
   const item = localStorage.getItem('symbols') as LocalStorage['symbols'];
@@ -14,7 +17,6 @@ export function updateSymbol(symbol: string, value: number) {
 
   const table = fromString(localStorage.getItem('symbols') as LocalStorage['symbols']);
   const updated = { ...table, [symbol]: value };
-  console.log(updated);
   localStorage.setItem('symbols', toString(updated));
 }
 
@@ -38,7 +40,7 @@ export function getAllSymbols() {
     setupInitialSymbols();
   }
 
-  return fromString(item || '') ?? getHiraganaArray();
+  return fromString(item || '') ?? SYMBOLS_ARRAY;
 }
 
 export function clear() {
@@ -59,6 +61,6 @@ function fromString(item: string) {
 }
 
 function setupInitialSymbols() {
-  const symbols = getHiraganaArray().reduce((p, c) => ({ ...p, [c]: 0 }), {} as Record<string, number>);
+  const symbols = SYMBOLS_ARRAY.reduce((p, c) => ({ ...p, [c]: 0 }), {} as Record<string, number>);
   localStorage.setItem('symbols', toString(symbols));
 }

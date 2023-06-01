@@ -1,15 +1,16 @@
-import { Accessor, createEffect, createSignal, untrack } from 'solid-js';
+import { type Accessor, createEffect, createSignal, untrack } from 'solid-js';
 import * as localStorage from './local-storage';
+import type { Alphabet } from './alphabet';
 
 type PointsTable = Record<string, number>;
 let lastSymbol: string | null = null;
 
-export function createFavoringMechanism(symbolsArray: Accessor<string[]>) {
+export function createFavoringMechanism(alphabet: Accessor<Alphabet>) {
   const [table, setTable] = createSignal({} as PointsTable);
   const [symbol, setSymbol] = createSignal('');
 
   createEffect(() => {
-    setTable(createPointsTable(symbolsArray(), localStorage.getAllSymbols()));
+    setTable(createPointsTable(alphabet(), localStorage.getAllSymbols()));
     untrack(() => setSymbol(getSymbolBasedOnPoints(table())));
   });
 
@@ -58,8 +59,8 @@ function getRandomSymbolFrom(array: string[]) {
   return symbol;
 }
 
-function createPointsTable(symbolsArray: string[], fromLocalStorage: Record<string, number>) {
-  return symbolsArray.reduce((p, c) => {
+function createPointsTable(alphabet: Alphabet, fromLocalStorage: Record<string, number>) {
+  return alphabet.getSymbolsBasedOnDifficulty().reduce((p, c) => {
     const symbolValue = fromLocalStorage[c];
     return { ...p, [c]: symbolValue ?? 0 };
   }, {} as PointsTable);

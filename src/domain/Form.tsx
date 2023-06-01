@@ -1,12 +1,11 @@
 import { createSignal } from 'solid-js';
 import { Button } from '../components/Button';
 import { Input } from '../components/Input';
-import { translate } from '../model/utils';
-import { TranslationMode } from './TranslationModeSelector';
+import { Alphabet } from '../model/alphabet';
 
 type Props = {
   symbol: string;
-  translationMode: TranslationMode;
+  alphabet: Alphabet;
   onSubmit: (isSuccess: boolean, withHelp: boolean) => void;
 };
 
@@ -18,7 +17,7 @@ export function Form(props: Props) {
     event.preventDefault();
 
     const value = ((inputRef!.value ?? '') as string).toLowerCase();
-    const isCorrect = translate(props.translationMode, props.symbol) === value;
+    const isCorrect = props.alphabet.translate(props.symbol) === value;
 
     const withHelp = showAnswer();
     if (isCorrect) {
@@ -44,7 +43,7 @@ export function Form(props: Props) {
         <Button type="submit">Submit answer</Button>
         {showAnswer() ? (
           <span class="mt-4 text-2xl font-bold dark:text-white">
-            The answer is: {translate(props.translationMode, props.symbol)}
+            The answer is: {props.alphabet.translate(props.symbol)}
           </span>
         ) : (
           <Button onClick={handleClick}>Give me the answer</Button>

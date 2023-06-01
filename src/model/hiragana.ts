@@ -1,4 +1,5 @@
-// import type { Latin } from './latin';
+import { useSettings } from '../domain/Settings';
+import type { Alphabet } from './alphabet';
 
 type SingleCharacters = 'あ' | 'い' | 'う' | 'え' | 'お';
 type K_Characters = 'か' | 'き' | 'く' | 'け' | 'こ';
@@ -11,9 +12,13 @@ type N_Characters = 'な' | 'に' | 'ぬ' | 'ね' | 'の';
 type H_Characters = 'は' | 'ひ' | 'ふ' | 'へ' | 'ほ';
 type B_Characters = 'ば' | 'び' | 'ぶ' | 'べ' | 'ぼ';
 type P_Characters = 'ぱ' | 'ぴ' | 'ぷ' | 'ぺ' | 'ぽ';
-type OtherCharacters = 'ん' | 'れ' | 'つんでれ' | 'くうでれ';
+type M_Characters = 'ま' | 'み' | 'む' | 'め' | 'も';
+type Y_Characters = 'や' | 'ゆ' | 'よ';
+type R_Characters = 'ら' | 'り' | 'る' | 'れ' | 'ろ';
+type W_Characters = 'わ'; // | 'ゐ' | 'ゑ' | 'を';
+type OtherCharacters = 'ん' | 'つんでれ' | 'くうでれ';
 
-export type Hiragana =
+export type HiraganaChar =
   | SingleCharacters
   | K_Characters
   | G_Characters
@@ -25,9 +30,53 @@ export type Hiragana =
   | H_Characters
   | B_Characters
   | P_Characters
+  | M_Characters
+  | Y_Characters
+  | R_Characters
+  | W_Characters
   | OtherCharacters;
 
-const HIRAGANA_TO_LATIN_MAP: { [K in Hiragana]: string } = {
+export class Hiragana implements Alphabet<HiraganaChar> {
+  private readonly symbols = Object.keys(HIRAGANA_TO_LATIN_MAP) as HiraganaChar[];
+  private readonly translations = HIRAGANA_TO_LATIN_MAP;
+
+  getSymbols() {
+    return [...this.symbols];
+  }
+
+  getSymbolsBasedOnDifficulty() {
+    const settings = useSettings();
+    const array = this.getSymbols();
+
+    switch (settings.difficulty()) {
+      case 'easy':
+        return array.slice(0, 20);
+
+      case 'medium':
+        return array.slice(20, 40);
+
+      case 'hard':
+        return array.slice(40, 55);
+
+      case 'very-hard':
+        return array.slice(40);
+
+      case 'all-characters':
+        return array;
+    }
+  }
+
+  translate(symbol: string) {
+    return this.translations[symbol as HiraganaChar];
+  }
+
+  toLatin(latin: string) {
+    const [found] = this.symbols.find(([, value]) => value === latin) ?? [];
+    return found!;
+  }
+}
+
+const HIRAGANA_TO_LATIN_MAP: { [K in HiraganaChar]: string } = {
   あ: 'a',
   い: 'i',
   う: 'u',
@@ -83,25 +132,26 @@ const HIRAGANA_TO_LATIN_MAP: { [K in Hiragana]: string } = {
   ぷ: 'pu',
   ぺ: 'pe',
   ぽ: 'po',
-  ん: 'n',
+  ま: 'ma',
+  み: 'me',
+  む: 'mu',
+  め: 'me',
+  も: 'mo',
+  や: 'ya',
+  ゆ: 'yu',
+  よ: 'yo',
+  ら: 'ra',
+  り: 'ri',
+  る: 'ru',
   れ: 're',
+  ろ: 'ro',
+  わ: 'wa',
+  // ゐ: 'wi',
+  // ゑ: 'we',
+  // を: 'wo',
+  ん: 'n',
   つんでれ: 'tsundere',
   くうでれ: 'kuudere',
 };
 
-export function getHiraganaArray() {
-  return Object.keys(HIRAGANA_TO_LATIN_MAP) as Hiragana[];
-}
-
-export function getLatinArray() {
-  return Object.values(HIRAGANA_TO_LATIN_MAP) as string[];
-}
-
-export function translateHiraganaToLatin(symbol: Hiragana) {
-  return HIRAGANA_TO_LATIN_MAP[symbol];
-}
-
-export function translateLatinToHiragana(latin: string) {
-  const [found] = Object.entries(HIRAGANA_TO_LATIN_MAP).find(([, value]) => value === latin) ?? [];
-  return found!;
-}
+export const HIRAGANA_ARRAY = Object.keys(HIRAGANA_TO_LATIN_MAP) as HiraganaChar[];

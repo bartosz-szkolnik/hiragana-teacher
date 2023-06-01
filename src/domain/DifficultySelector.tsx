@@ -40,7 +40,7 @@ export function DifficultySelector(props: Props) {
   };
 
   return (
-    <RadioGroup name="difficulty" onChange={handleChange}>
+    <RadioGroup legend="Choose difficulty" name="difficulty" onChange={handleChange}>
       <For each={DIFFICULTY_LEVELS}>
         {item => (
           <RadioButton checked={props.value === item.id} id={item.id} disabled={item.disabled ?? false}>

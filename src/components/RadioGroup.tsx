@@ -15,8 +15,8 @@ export function RadioGroup(props: Props) {
   return (
     <RadioContext.Provider value={[props.name, props.onChange]}>
       <fieldset>
-        {props.legend && <legend>{props.legend}</legend>}
-        <div class="flex justify-center items-center flex-wrap gap-x-10">{props.children}</div>
+        {props.legend && <legend class="text-2xl font-bold dark:text-white">{props.legend}</legend>}
+        <div class="flex justify-center flex-col gap-x-10">{props.children}</div>
       </fieldset>
     </RadioContext.Provider>
   );

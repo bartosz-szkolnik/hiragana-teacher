@@ -3,6 +3,7 @@ import { render } from 'solid-js/web';
 
 import './index.css';
 import App from './App';
+import { Settings } from './domain/Settings';
 
 const root = document.getElementById('root');
 
@@ -12,4 +13,11 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
   );
 }
 
-render(() => <App />, root!);
+render(
+  () => (
+    <Settings>
+      <App />
+    </Settings>
+  ),
+  root!,
+);
