@@ -7,6 +7,8 @@ type Props = ParentProps & {
   disabled?: boolean;
 };
 
+// @fixme add disabled visibility to checkbox and label
+
 export function RadioButton(props: Props) {
   const [name, handleChange] = useRadioContext();
 

@@ -15,7 +15,7 @@ type P_Characters = 'ぱ' | 'ぴ' | 'ぷ' | 'ぺ' | 'ぽ';
 type M_Characters = 'ま' | 'み' | 'む' | 'め' | 'も';
 type Y_Characters = 'や' | 'ゆ' | 'よ';
 type R_Characters = 'ら' | 'り' | 'る' | 'れ' | 'ろ';
-type W_Characters = 'わ'; // | 'ゐ' | 'ゑ' | 'を';
+type W_Characters = 'わ' | 'ゐ' | 'ゑ' | 'を';
 type OtherCharacters = 'ん' | 'つんでれ' | 'くうでれ';
 
 export type HiraganaChar =
@@ -133,7 +133,7 @@ const HIRAGANA_TO_LATIN_MAP: { [K in HiraganaChar]: string } = {
   ぺ: 'pe',
   ぽ: 'po',
   ま: 'ma',
-  み: 'me',
+  み: 'mi',
   む: 'mu',
   め: 'me',
   も: 'mo',
@@ -146,9 +146,9 @@ const HIRAGANA_TO_LATIN_MAP: { [K in HiraganaChar]: string } = {
   れ: 're',
   ろ: 'ro',
   わ: 'wa',
-  // ゐ: 'wi',
-  // ゑ: 'we',
-  // を: 'wo',
+  ゐ: 'wi',
+  ゑ: 'we',
+  を: 'wo',
   ん: 'n',
   つんでれ: 'tsundere',
   くうでれ: 'kuudere',

@@ -22,6 +22,7 @@ const TRANSLATIONS: RadioConfig<Mode> = [
   {
     id: 'latin-to-hiragana',
     label: 'Latin to Hiragana',
+    disabled: true,
   },
 ];
 
@@ -30,7 +31,7 @@ export function ModeSelector(props: Props) {
     <RadioGroup legend="Choose mode" name="translation" onChange={value => props.onChange(value as Mode)}>
       <For each={TRANSLATIONS}>
         {item => (
-          <RadioButton checked={props.value === item.id} id={item.id}>
+          <RadioButton checked={props.value === item.id} id={item.id} disabled={item.disabled ?? false}>
             {item.label}
           </RadioButton>
         )}

@@ -20,7 +20,7 @@ export function Main(props: Props) {
 
   const [streak, setStreak] = createSignal(0);
   const alphabet = createMemo(() => createAlphabet(settings.mode()));
-  const { symbol, table, success, lose } = createFavoringMechanism(alphabet);
+  const { symbol, table, success, lose, queue } = createFavoringMechanism(alphabet);
 
   const handleSubmit = (isSuccess: boolean, withHelp: boolean) => {
     if (isSuccess) {
@@ -41,8 +41,9 @@ export function Main(props: Props) {
       <Symbol symbol={symbol()}></Symbol>
       <Form onSubmit={handleSubmit} symbol={symbol()} alphabet={alphabet()}></Form>
       {IS_DEV && (
-        <pre class="mt-4 dark:text-white">
+        <pre class="mt-4 dark:text-white flex">
           <code>{JSON.stringify(table(), null, 2)}</code>
+          <code>{JSON.stringify(queue(), null, 2)}</code>
         </pre>
       )}
     </main>

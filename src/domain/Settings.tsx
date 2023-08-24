@@ -25,7 +25,7 @@ export function Settings(props: ParentProps) {
   const [difficulty, setDifficulty] = createSignal<Difficulty>(localStorage.getDifficulty());
 
   return (
-    <SettingsContext.Provider value={{ mode: mode, setMode, difficulty: difficulty, setDifficulty }}>
+    <SettingsContext.Provider value={{ mode, setMode, difficulty, setDifficulty }}>
       {props.children}
     </SettingsContext.Provider>
   );

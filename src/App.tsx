@@ -3,7 +3,7 @@ import { SettingsPanel } from './domain/SettingsPanel';
 import { Main } from './domain/Main';
 import { Header } from './domain/Header';
 
-export const IS_DEV = true;
+export const IS_DEV = false;
 
 const App: Component = () => {
   const [settingsOpened, setSettingsOpen] = createSignal(false);
