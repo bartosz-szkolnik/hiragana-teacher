@@ -8,6 +8,14 @@ vitest.mock('../src/model/utils.ts', () => ({
   shuffle: (array: unknown[]) => array,
 }));
 
+vitest.mock('../src/model/local-storage.ts', () => ({
+  updateSymbol: () => {},
+  getDifficulty: () => 'easy',
+  setDifficulty: () => {},
+  getAllSymbols: () => null,
+  clear: () => {},
+}));
+
 describe('App', () => {
   it('should render', () => {
     render(() => <App />);
@@ -79,24 +87,21 @@ describe('App', () => {
     await user.click(screen.getByRole('radio', { name: /^hard$/i }));
     expect(screen.getByLabelText('symbol')).toHaveTextContent('は');
 
-    await user.click(screen.getByRole('button', { name: /open settings/i }));
     await user.click(screen.getByRole('radio', { name: /medium/i }));
     expect(screen.getByLabelText('symbol')).toHaveTextContent('ざ');
 
-    await user.click(screen.getByRole('button', { name: /open settings/i }));
     await user.click(screen.getByRole('radio', { name: /all characters/i }));
     expect(screen.getByLabelText('symbol')).toHaveTextContent('あ');
 
-    await user.click(screen.getByRole('button', { name: /open settings/i }));
     await user.click(screen.getByRole('radio', { name: /very hard/i }));
     expect(screen.getByLabelText('symbol')).toHaveTextContent('は');
 
-    await user.click(screen.getByRole('button', { name: /open settings/i }));
     await user.click(screen.getByRole('radio', { name: /easy/i }));
     expect(screen.getByLabelText('symbol')).toHaveTextContent('あ');
+    await user.click(screen.getByRole('button', { name: /close settings/i }));
   });
 
-  it.only('should allow to change the alphabet', async () => {
+  it('should allow to change the alphabet', async () => {
     const { user } = renderComponent();
 
     await user.click(screen.getByRole('button', { name: /open settings/i }));
@@ -106,6 +111,7 @@ describe('App', () => {
     await user.click(screen.getByRole('button', { name: /open settings/i }));
     await user.click(screen.getByRole('radio', { name: /hiragana to latin/i }));
     expect(screen.getByLabelText('symbol')).toHaveTextContent('あ');
+    await user.click(screen.getByRole('button', { name: /open settings/i }));
   });
 
   it.todo('should store values in local storage');
