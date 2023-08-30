@@ -15,6 +15,7 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
-    transformMode: { web: [/\.[jt]sx?$/] },
+    testTransformMode: { web: ['/.[jt]sx?$/'] },
+    setupFiles: ['./test/setup-test.ts'],
   },
 });

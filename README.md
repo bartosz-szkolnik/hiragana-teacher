@@ -18,7 +18,7 @@ Todo:
 - [x] Deploy finished MVP
 - [x] Add Katakana 
 - [x] Check & probably improve the favoring mechanism (maybe some sort of memory for double, triple points)
-- [ ] Add tests
+- [x] Add tests
 - [ ] Add helper tables for different alphabets
 - [ ] Add the possibility of switching to words (good luck to me with writing all that stuff) 
 - [ ] Add the rest of Katakana 

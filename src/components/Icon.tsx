@@ -3,12 +3,14 @@ import { Match, Switch } from 'solid-js';
 type IconProps = {
   variant: keyof typeof ICONS;
   class?: string;
+  ariaLabel?: string;
   onClick?: (event: Event) => void;
 };
 
 export function Icon(props: IconProps) {
   return (
     <button
+      aria-label={props.ariaLabel}
       onClick={props.onClick}
       class={`w-12 h-12 p-2 rounded-3xl transition-all dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700 active:bg-slate-200 dark:active:bg-slate-600 focus:opacity-[0.85] active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 ${props.class}`}
     >

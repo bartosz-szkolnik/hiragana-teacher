@@ -12,9 +12,9 @@ export const Input: Component<InputProps> = props => {
       <div class="relative h-11 w-full">
         <input
           ref={props.ref}
+          name={props.name}
           type="text"
           required
-          name={props.name}
           autocomplete="off"
           autocorrect="off"
           autocapitalize="off"

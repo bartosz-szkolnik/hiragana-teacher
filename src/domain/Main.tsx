@@ -35,7 +35,7 @@ export function Main(props: Props) {
     <main class="mt-12 flex flex-col items-center">
       <div class="flex justify-between gap-5 items-center">
         <h2 class="text-3xl font-bold dark:text-white">Current streak: {streak()}</h2>
-        <Icon onClick={props.handleOpenSettings} variant="settings"></Icon>
+        <Icon ariaLabel="open settings" onClick={props.handleOpenSettings} variant="settings"></Icon>
       </div>
       <Symbol symbol={symbol()}></Symbol>
       <Form onSubmit={handleSubmit} symbol={symbol()} alphabet={alphabet()}></Form>

@@ -1,7 +1,7 @@
 import '@solidjs/testing-library';
 import matchers, { TestingLibraryMatchers } from '@testing-library/jest-dom/matchers';
-
-import { expect } from 'vitest';
+import { expect, vitest } from 'vitest';
+import { DummyTransition } from './dummy-transition';
 
 expect.extend(matchers);
 
@@ -12,3 +12,7 @@ declare global {
     interface Matchers<R, T = {}> extends TestingLibraryMatchers<T, R> {}
   }
 }
+
+vitest.mock('solid-transition-group', () => ({
+  Transition: DummyTransition,
+}));
