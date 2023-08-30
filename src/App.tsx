@@ -6,14 +6,14 @@ import { Header } from './domain/Header';
 export const IS_DEV = false;
 
 const App: Component = () => {
-  const [settingsOpened, setSettingsOpen] = createSignal(false);
+  const [settingsOpened, setSettingsOpened] = createSignal(false);
 
   return (
     <div class="flex flex-col items-center text-center">
       <Header></Header>
-      <Main handleOpenSettings={() => setSettingsOpen(true)}></Main>
+      <Main handleOpenSettings={() => setSettingsOpened(true)}></Main>
       <Show when={settingsOpened()}>
-        <SettingsPanel onClose={() => setSettingsOpen(false)}></SettingsPanel>
+        <SettingsPanel onClose={() => setSettingsOpened(false)}></SettingsPanel>
       </Show>
     </div>
   );

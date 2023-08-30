@@ -1,20 +1,21 @@
 import { type Accessor, createEffect, createSignal, untrack } from 'solid-js';
 import * as localStorage from './local-storage';
-import type { Alphabet } from './alphabet';
+import type { Alphabet, SymbolChar } from './alphabet';
 import { shuffle } from './utils';
 
-type PointsTable = Record<string, number>;
+export type Queue = SymbolChar[];
+export type PointsList = Record<SymbolChar, number>;
 
 const MULTIPLY_POINTS_RATE = 0.6;
 
 export function createFavoringMechanism(alphabetAcc: Accessor<Alphabet>) {
-  const [queue, setQueue] = createSignal<string[]>([]);
-  const [table, setTable] = createSignal<PointsTable>({});
-  const [symbol, setSymbol] = createSignal('');
+  const [queue, setQueue] = createSignal<Queue>([]);
+  const [list, setList] = createSignal({} as PointsList);
+  const [symbol, setSymbol] = createSignal<SymbolChar>('');
 
   createEffect(() => {
     const alphabet = alphabetAcc();
-    setTable(createPointsTable(alphabet, localStorage.getAllSymbols()));
+    setList(createPointsList(alphabet));
 
     const [first, ...rest] = createShuffledQueue(alphabet, 3);
     untrack(() => {
@@ -23,32 +24,32 @@ export function createFavoringMechanism(alphabetAcc: Accessor<Alphabet>) {
     });
   });
 
-  const success = (withHelp: boolean) => {
-    const current = table()[symbol()];
+  const success = (withHelp = false) => {
+    const current = list()[symbol()];
     const points = getPoints(withHelp, current);
 
-    setTable(table => ({ ...table, [symbol()]: current + points }));
+    setList(list => ({ ...list, [symbol()]: current + points }));
     localStorage.updateSymbol(symbol(), current + points);
 
-    const [first, rest] = getNextSymbols(queue(), table(), alphabetAcc());
+    const [first, rest] = getNextSymbols(queue(), list(), alphabetAcc());
     setSymbol(first);
     setQueue(rest);
   };
 
   const lose = () => {
-    const current = table()[symbol()];
+    const current = list()[symbol()];
     const points = current > 3 ? 2 : 1;
 
-    setTable(table => ({ ...table, [symbol()]: current - points }));
+    setList(list => ({ ...list, [symbol()]: current - points }));
     localStorage.updateSymbol(symbol(), current - points);
   };
 
-  return { table, symbol, success, lose, queue };
+  return { list, symbol, success, lose, queue };
 }
 
-function getNextSymbols(queue: string[], pointsTable: PointsTable, alphabet: Alphabet) {
+function getNextSymbols(queue: Queue, pointsList: PointsList, alphabet: Alphabet) {
   if (queue.length <= 0) {
-    const queue = createFilteredQueue(alphabet, pointsTable);
+    const queue = createFilteredQueue(alphabet, pointsList);
 
     const [first, ...rest] = shuffle(queue);
     return [first, rest] as const;
@@ -58,22 +59,24 @@ function getNextSymbols(queue: string[], pointsTable: PointsTable, alphabet: Alp
   return [first, rest] as const;
 }
 
-function createPointsTable(alphabet: Alphabet, fromLocalStorage: PointsTable) {
-  return alphabet.getSymbols().reduce((table, symbol) => {
-    const symbolValue = fromLocalStorage[symbol];
+function createPointsList(alphabet: Alphabet) {
+  const localData = localStorage.getAllSymbols() as PointsList | null;
 
-    return { ...table, [symbol]: symbolValue ?? 0 };
-  }, {} as PointsTable);
+  return alphabet.getSymbols().reduce((list, symbol) => {
+    const symbolValue = localData?.[symbol] ?? 0;
+
+    return { ...list, [symbol]: symbolValue };
+  }, {} as PointsList);
 }
 
 function createShuffledQueue(alphabet: Alphabet, amount: number) {
   const array = Array(amount).fill(alphabet.getSymbolsBasedOnDifficulty()).flat();
-  return shuffle(array) as string[];
+  return shuffle(array) as Queue;
 }
 
-function createFilteredQueue(alphabet: Alphabet, pointsTable: PointsTable) {
+function createFilteredQueue(alphabet: Alphabet, pointsList: PointsList) {
   const queue = createShuffledQueue(alphabet, 2);
-  return queue.filter(symbol => pointsTable[symbol] <= 20);
+  return queue.filter(symbol => pointsList[symbol] <= 20);
 }
 
 function getPoints(withHelp: boolean, current: number) {

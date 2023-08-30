@@ -26,7 +26,6 @@ export function SettingsPanel(props: SettingsPanelProps) {
           <Button onClick={clearLocalStorage}>Clear local storage</Button>
           <div class="flex" classList={{ 'justify-around': IS_DEV }}>
             <DifficultySelector onChange={settings.setDifficulty} value={settings.difficulty()} />
-            {/* {IS_DEV ? <ModeSelector onChange={settings.setMode} value={settings.mode()} /> : null} */}
             <ModeSelector onChange={settings.setMode} value={settings.mode()} />
           </div>
         </div>

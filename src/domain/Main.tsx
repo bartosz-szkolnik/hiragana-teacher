@@ -3,7 +3,6 @@ import { Icon } from '../components/Icon';
 import { Symbol } from '../domain/Symbol';
 import { useSettings } from './Settings';
 import { createFavoringMechanism } from '../model/favoring-mechanism';
-import { Alphabet } from '../model/alphabet';
 import { Mode } from './ModeSelector';
 import { Hiragana } from '../model/hiragana';
 import { assertUnreachable } from '../model/utils';
@@ -20,7 +19,7 @@ export function Main(props: Props) {
 
   const [streak, setStreak] = createSignal(0);
   const alphabet = createMemo(() => createAlphabet(settings.mode()));
-  const { symbol, table, success, lose, queue } = createFavoringMechanism(alphabet);
+  const { symbol, list, success, lose, queue } = createFavoringMechanism(alphabet);
 
   const handleSubmit = (isSuccess: boolean, withHelp: boolean) => {
     if (isSuccess) {
@@ -42,7 +41,7 @@ export function Main(props: Props) {
       <Form onSubmit={handleSubmit} symbol={symbol()} alphabet={alphabet()}></Form>
       {IS_DEV && (
         <pre class="mt-4 dark:text-white flex">
-          <code>{JSON.stringify(table(), null, 2)}</code>
+          <code>{JSON.stringify(list(), null, 2)}</code>
           <code>{JSON.stringify(queue(), null, 2)}</code>
         </pre>
       )}
@@ -50,14 +49,12 @@ export function Main(props: Props) {
   );
 }
 
-function createAlphabet(mode: Mode): Alphabet {
+function createAlphabet(mode: Mode) {
   switch (mode) {
     case 'hiragana-to-latin':
       return new Hiragana();
     case 'katakana-to-latin':
       return new Katakana();
-    case 'latin-to-hiragana':
-      return new Hiragana(); // todo
     default:
       assertUnreachable(mode);
   }

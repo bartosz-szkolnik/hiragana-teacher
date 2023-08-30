@@ -14,7 +14,7 @@ export function RadioButton(props: Props) {
 
   return (
     <div class="inline-flex items-center">
-      <label class="relative flex cursor-pointer items-center rounded-full p-3" for={props.id}>
+      <label class="relative flex cursor-pointer items-center rounded-full p-3">
         <input
           id={props.id}
           name={name}

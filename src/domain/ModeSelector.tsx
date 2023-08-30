@@ -2,8 +2,8 @@ import { For } from 'solid-js';
 import { RadioButton } from '../components/RadioButton';
 import { RadioConfig, RadioGroup } from '../components/RadioGroup';
 
-type SymbolLanguage = 'hiragana' | 'katakana' | 'korean';
-export type Mode = 'hiragana-to-latin' | 'latin-to-hiragana' | 'katakana-to-latin';
+type SymbolLanguage = 'hiragana' | 'katakana'; //'korean';
+export type Mode = `${SymbolLanguage}-to-latin`;
 
 type Props = {
   value: Mode;
@@ -18,11 +18,6 @@ const TRANSLATIONS: RadioConfig<Mode> = [
   {
     id: 'katakana-to-latin',
     label: 'Katakana to latin',
-  },
-  {
-    id: 'latin-to-hiragana',
-    label: 'Latin to Hiragana',
-    disabled: true,
   },
 ];
 

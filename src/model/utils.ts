@@ -3,15 +3,15 @@ export function assertUnreachable(x: never): never {
 }
 
 export function shuffle<T extends any[]>(array: T): T {
-  let currentIndex = array.length;
+  const arr = [...array] as T;
+  let currentIndex = arr.length;
   let randomIndex = 0;
 
   while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
-
-    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    [arr[currentIndex], arr[randomIndex]] = [arr[randomIndex], arr[currentIndex]];
   }
 
-  return array;
+  return arr;
 }

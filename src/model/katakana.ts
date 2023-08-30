@@ -17,8 +17,8 @@ export class Katakana implements Alphabet<KatakanaChar> {
     return this.getSymbols();
   }
 
-  translate(symbol: string) {
-    return this.translations[symbol as KatakanaChar];
+  translate(symbol: KatakanaChar) {
+    return this.translations[symbol];
   }
 
   toLatin(latin: string) {

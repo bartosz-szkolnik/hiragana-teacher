@@ -66,8 +66,8 @@ export class Hiragana implements Alphabet<HiraganaChar> {
     }
   }
 
-  translate(symbol: string) {
-    return this.translations[symbol as HiraganaChar];
+  translate(symbol: HiraganaChar) {
+    return this.translations[symbol];
   }
 
   toLatin(latin: string) {
